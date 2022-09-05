@@ -1,3 +1,31 @@
 .table {
     background-color: rgb(67, 215, 17);
 }
+
+.cuerpotabla {
+    background-color: dimgray;
+}
+.modal-content {
+    
+}
+.modal-header {
+     background-color: dodgerblue;
+     text-align: center;
+     font-size: x-large
+     
+}
+
+.btn-secondary {
+    background-color: darkgrey;
+}
+
+.btn2 {
+    background-color: rgb(30, 195, 255);
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.btn3 {
+    background-color: red;
+    border-radius: 10px;
+}
