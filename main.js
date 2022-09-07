@@ -1,35 +1,149 @@
-function onSubmitForm(){
-   let formDatos = leerForm();
-   insertarNuevoPaciente(formDatos);
-}
 
-function leerForm(){
-    let formDatos = {};
-    formDatos["nombreCompleto"] = document.getElementById("nombreCompleto").value;
-    formDatos["edad"] = document.getElementById("edad").value;
-    formDatos["patologia"] = document.getElementById("patologia").value;
-    formDatos["fecha"] = document.getElementById("fecha").value;
-    return formDatos
-}
+let button = document.getElementById('btnagregarpaciente')
+button.addEventListener('click', crearForm)
 
-function insertarNuevoPaciente(formDatos){
+
+
+//funcion crear
+function crearForm(){
+       
+    function Paciente (nombreCompleto,edad,patologia,fecha){
+          this.nombreCompleto=nombreCompleto;
+          this.edad=edad;
+          this.patologia=patologia;
+          this.fecha=fecha;
+
+    }
+        var capturarNombreCompleto = document.getElementById("nombreCompleto").value;
+        var capturarEdad = document.getElementById("edad").value;
+        var capturarPatologia = document.getElementById("patologia").value;
+        var capturarFecha = document.getElementById("fecha").value;
+
+        nuevoPaciente = new Paciente(capturarNombreCompleto,capturarEdad,capturarPatologia,capturarFecha);
+        insertarNuevoPaciente ();
+        }
+
+        let formDatos= [];
+       
+//funcion leer
+function insertarNuevoPaciente(){
+    formDatos.push(nuevoPaciente);
+    console.log(formDatos);
+    // document.getElementById("tablaPacientes").innerHTML += '<tbody><td>'+ nuevoPaciente.nombreCompleto+'</td><td>'+nuevoPaciente.edad+'</td><td>'+nuevoPaciente.patologia+'</td><td>'+nuevoPaciente.fecha+'</td></tbody>';
     var tabla = document.getElementById("tablaPacientes").getElementsByTagName('tbody')[0];
-    var nuevaFila = tabla.insertRow();
-    cell1 = nuevaFila.insertCell(0);
-    cell1.innerHTML = formDatos.nombreCompleto;
-    cell2 = nuevaFila.insertCell(1);
-    cell2.innerHTML = formDatos.edad;
-    cell3 = nuevaFila.insertCell(2);
-    cell3.innerHTML = formDatos.patologia;
-    cell4 = nuevaFila.insertCell(3);
-    cell4.innerHTML = formDatos.fecha;
-    cell5 = nuevaFila.insertCell(4);
-    cell5.innerHTML = '<button class="btn2">Editar</button><button class="btn3" onClick=eliminarRegistro(this)>Borrar</button>';
+        var nuevaFila = tabla.insertRow();
+        cell1 = nuevaFila.insertCell(0);
+        cell1.innerHTML = nuevoPaciente.nombreCompleto;
+        cell2 = nuevaFila.insertCell(1);
+        cell2.innerHTML = nuevoPaciente.edad;
+        cell3 = nuevaFila.insertCell(2);
+        cell3.innerHTML = nuevoPaciente.patologia;
+        cell4 = nuevaFila.insertCell(3);
+        cell4.innerHTML = nuevoPaciente.fecha;
+        cell5 = nuevaFila.insertCell(4);
+        cell5.innerHTML = '<button class="btn2" id="btnEditar">Editar</button><button class="btn3 "id="btnBorrar" onclick="eliminarRegistro();">Borrar</button>';
+        localStorage.setItem("formDatos",JSON.stringify(formDatos));
 }
+
+
+//funcion eliminar 
+function eliminarRegistro (){
+
+ let borrarFila = buttonBorrar.parentElement.parentElement;
+ document.getElementsByClassName("cuerpoTabla").deleteRow(borrarFila.filaIndex);
+ 
+  
+}
+
+//funcion editar 
+function editarRegistro (){
+    let buttonEditar = document.getElementById('btnEditar')
+ buttonEditar.addEventListener('click', editarRegistro)
+
+
+
+}
+//funcion para que se guarden los datos en la tabla cuando se refresca la pagina
+function actualizarPaginaConDatosLocalStorage(){
+    if(localStorage.getItem("formDatos")==null){
+        console.log("No hay datos en el localStorage")
+    }
+    else{
+        formDatos = JSON.parce(logalStorage.getItem("formDatos"));
+        for(let index = 0; index < formDatos.length; index++){
+            let nombreCompletoLs = formDatos[index].nombreCompleto;
+            let edadLs = formDatos[index].edad;
+            let patologiaLs = formDatos[index].patologia;
+            let fechaLs = formDatos[index].fecha;
+
+            document.getElementById("cuerpoTabla").innerHTML +=
+            `<tr>
+               <td>${nombreCompletoLs}</td>
+               <td>${edadLs}</td>
+               <td>${patologiaLs}</td>
+               <td>${fechaLs}</td>
+               <td><button class="btn2" id="btnEditar">Editar</button><button class="btn3 "id="btnBorrar">Borrar</button>}</td>
+            </tr>
+            `
+        }
+    }
+    return actualizarPaginaConDatosLocalStorage()
+}
+
+//funcion leer 
+// function insertarNuevoPaciente(formDatos){
+//     var tabla = document.getElementById("tablaPacientes").getElementsByTagName('tbody')[0];
+//     var nuevaFila = tabla.insertRow();
+//     cell1 = nuevaFila.insertCell(0);
+//     cell1.innerHTML = formDatos.nombreCompleto;
+//     cell2 = nuevaFila.insertCell(1);
+//     cell2.innerHTML = formDatos.edad;
+//     cell3 = nuevaFila.insertCell(2);
+//     cell3.innerHTML = formDatos.patologia;
+//     cell4 = nuevaFila.insertCell(3);
+//     cell4.innerHTML = formDatos.fecha;
+//     cell5 = nuevaFila.insertCell(4);
+//     cell5.innerHTML = '<button class="btn2">Editar</button><button class="btn3" onClick=eliminarRegistro(this)>Borrar</button>';
+// }
+
+
+// () => insertarNuevoPaciente (formDatos)
+
+
+
+
+// function onSubmitForm(){
+//    let formDatos = leerForm();
+//    insertarNuevoPaciente(formDatos);
+// }
+
+// function leerForm(){
+//     let formDatos = {};
+//     formDatos["nombreCompleto"] = document.getElementById("nombreCompleto").value;
+//     formDatos["edad"] = document.getElementById("edad").value;
+//     formDatos["patologia"] = document.getElementById("patologia").value;
+//     formDatos["fecha"] = document.getElementById("fecha").value;
+//     return formDatos
+// }
+
+// function insertarNuevoPaciente(formDatos){
+//     var tabla = document.getElementById("tablaPacientes").getElementsByTagName('tbody')[0];
+//     var nuevaFila = tabla.insertRow();
+//     cell1 = nuevaFila.insertCell(0);
+//     cell1.innerHTML = formDatos.nombreCompleto;
+//     cell2 = nuevaFila.insertCell(1);
+//     cell2.innerHTML = formDatos.edad;
+//     cell3 = nuevaFila.insertCell(2);
+//     cell3.innerHTML = formDatos.patologia;
+//     cell4 = nuevaFila.insertCell(3);
+//     cell4.innerHTML = formDatos.fecha;
+//     cell5 = nuevaFila.insertCell(4);
+//     cell5.innerHTML = '<button class="btn2">Editar</button><button class="btn3" onClick=eliminarRegistro(this)>Borrar</button>';
+// }
 
 // function eliminarRegistro(btn3) {
-//     var fila = btn3.parentElement.parentElement
-//     document.getElementsByClassName("cuerpoTabla").deleteRow(fila.filaIndex);
+//     var borrarFila = btn3.parentElement.parentElement;
+//     document.getElementsByClassName("cuerpoTabla").deleteRow(borrarFila.filaIndex);
 
 // }
 
@@ -86,29 +200,6 @@ function insertarNuevoPaciente(formDatos){
 
 
 
-
-// document.querySelector("#btnagregarpaciente").addEventListener('click',agregarPaciente);
-
-// function agregarPaciente(){
-//    let aNuevoPaciente = [],
-//        sNombreCompleto = '',
-//        sEdad = '',
-//        sPatologia = '',
-//        sFecha = '';
-
-//     sNombreCompleto = document.querySelector('#txtnombreCompleto').value;
-//     sEdad = document.querySelector ('#txtedad').value;
-//     sPatologia = document.querySelector ('#txtpatologia').value;
-//     sEdad = document.querySelector ('#txtedad').value;
-//     sFecha =  document.querySelector ('#txtfecha').value;
-
-// aNuevoPaciente.push(sNombreCompleto,sEdad,sPatologia,sFecha);
-
-// return aNuevoPaciente
-
-// }
-
-// console.log(aNuevoPaciente)
 
 
 
