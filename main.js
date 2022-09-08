@@ -41,16 +41,20 @@ function insertarNuevoPaciente(){
         cell4 = nuevaFila.insertCell(3);
         cell4.innerHTML = nuevoPaciente.fecha;
         cell5 = nuevaFila.insertCell(4);
-        cell5.innerHTML = '<button class="btn2" id="btnEditar">Editar</button><button class="btn3 "id="btnBorrar" onclick="eliminarRegistro();">Borrar</button>';
+        cell5.innerHTML = '<button class="btn2" id="btnEditar">Editar</button><button class="btn3 "id="btnBorrar" onclick="eliminarRegistro(this);">Borrar</button>';
         localStorage.setItem("formDatos",JSON.stringify(formDatos));
+
+              
+        
 }
 
+actualizarPaginaConDatosLocalStorage(); 
 
 //funcion eliminar 
-function eliminarRegistro (){
-
- let borrarFila = buttonBorrar.parentElement.parentElement;
- document.getElementsByClassName("cuerpoTabla").deleteRow(borrarFila.filaIndex);
+function eliminarRegistro (boton){
+ let fila = boton.parentElement.parentElement;
+ console.log(fila);
+ document.getElementById("cuerpotabla").deleteRow(fila[0]);
  
   
 }
@@ -65,49 +69,35 @@ function editarRegistro (){
 }
 //funcion para que se guarden los datos en la tabla cuando se refresca la pagina
 function actualizarPaginaConDatosLocalStorage(){
-    if(localStorage.getItem("formDatos")==null){
-        console.log("No hay datos en el localStorage")
-    }
-    else{
-        formDatos = JSON.parce(logalStorage.getItem("formDatos"));
-        for(let index = 0; index < formDatos.length; index++){
-            let nombreCompletoLs = formDatos[index].nombreCompleto;
-            let edadLs = formDatos[index].edad;
-            let patologiaLs = formDatos[index].patologia;
-            let fechaLs = formDatos[index].fecha;
+    if(localStorage.getItem("formDatos") === null){
+            console.log("No hay datos en el localStorage")
+        }
 
-            document.getElementById("cuerpoTabla").innerHTML +=
+    else{
+       formDatos = JSON.parse(localStorage.getItem("formDatos"));
+       let mostrarEnTabla = document.getElementById("cuerpotabla");
+console.log(mostrarEnTabla);
+       mostrarEnTabla.innerHTML = '';
+
+        for(let i = 0; i < formDatos.length; i++){
+            let nombreCompletoLs = formDatos[i].nombreCompleto;
+            let edadLs = formDatos[i].edad;
+            let patologiaLs = formDatos[i].patologia;
+            let fechaLs = formDatos[i].fecha;
+
+        mostrarEnTabla.innerHTML +=   
             `<tr>
                <td>${nombreCompletoLs}</td>
                <td>${edadLs}</td>
                <td>${patologiaLs}</td>
                <td>${fechaLs}</td>
-               <td><button class="btn2" id="btnEditar">Editar</button><button class="btn3 "id="btnBorrar">Borrar</button>}</td>
+               <td><button class="btn2" id="btnEditar">Editar</button><button class="btn3 "id="btnBorrar" onclick="eliminarRegistro(this);">Borrar</button></td>
             </tr>
             `
         }
     }
-    return actualizarPaginaConDatosLocalStorage()
 }
 
-//funcion leer 
-// function insertarNuevoPaciente(formDatos){
-//     var tabla = document.getElementById("tablaPacientes").getElementsByTagName('tbody')[0];
-//     var nuevaFila = tabla.insertRow();
-//     cell1 = nuevaFila.insertCell(0);
-//     cell1.innerHTML = formDatos.nombreCompleto;
-//     cell2 = nuevaFila.insertCell(1);
-//     cell2.innerHTML = formDatos.edad;
-//     cell3 = nuevaFila.insertCell(2);
-//     cell3.innerHTML = formDatos.patologia;
-//     cell4 = nuevaFila.insertCell(3);
-//     cell4.innerHTML = formDatos.fecha;
-//     cell5 = nuevaFila.insertCell(4);
-//     cell5.innerHTML = '<button class="btn2">Editar</button><button class="btn3" onClick=eliminarRegistro(this)>Borrar</button>';
-// }
-
-
-// () => insertarNuevoPaciente (formDatos)
 
 
 

@@ -1,8 +1,9 @@
 .table {
     background-color: rgb(67, 215, 17);
+    max-width: 80%;
 }
 
-.cuerpotabla {
+#cuerpotabla {
     background-color: dimgray;
 }
 .modal-content {
@@ -29,3 +30,59 @@
     background-color: red;
     border-radius: 10px;
 }
+.conteinerpie {
+    background-color: black;
+    color: aliceblue;
+    box-sizing: border-box;  
+    display: flex; 
+    flex-direction: row;
+    justify-content:space-between;
+ 
+
+}
+
+.listapie {
+    margin-right: 400px;
+}
+.titulopie {
+    margin-right: 70px;
+    margin-left: 70px;
+    text-size-adjust: 30px;
+}
+
+.servicios {
+    margin-left: 100px;
+}
+
+@media screen and (max-width:400px){
+    .cabecera{
+        display: flex;
+        flex-direction: column;
+    }
+    .table{
+        max-width: 40%;
+    }
+
+}
+
+@media screen and (max-width:600px){
+    
+    
+    .table{
+        max-width: 60%;
+    }
+
+    .conteinerpie {
+        display: flex;
+        flex-direction: column;
+     }
+    
+     .listapie{
+        font-size: small;
+        margin-top: 20px;
+     }
+
+     .titulopie{
+        font-size: small;
+     }
+    }
