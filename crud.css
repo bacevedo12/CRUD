@@ -1,6 +1,8 @@
 .table {
     background-color: rgb(67, 215, 17);
     max-width: 80%;
+    margin-left: 30px;
+    
 }
 
 #cuerpotabla {
@@ -54,13 +56,19 @@
     margin-left: 100px;
 }
 
-@media screen and (max-width:400px){
+#btnactualizarpaciente {
+    display: none;
+}
+@media screen and (max-width:450px){
     .cabecera{
         display: flex;
         flex-direction: column;
     }
     .table{
-        max-width: 40%;
+       width: 40%;
+       margin-left: 20px;
+       margin-right: 0px;
+       font-size: x-small;
     }
 
 }
@@ -69,7 +77,7 @@
     
     
     .table{
-        max-width: 60%;
+       
     }
 
     .conteinerpie {
@@ -80,9 +88,11 @@
      .listapie{
         font-size: small;
         margin-top: 20px;
+        margin-left: 0px;
      }
 
      .titulopie{
         font-size: small;
+        margin-left: 0px;
      }
     }

@@ -19,13 +19,14 @@
 </header>
 <main>
 <button id="btn agregarpaciente" type="button" class="btn btn-dark m-5 p-3" data-bs-toggle="modal" data-bs-target="#modalPaciente" data-bs-whatever="@mdo">Agregar Paciente</button>
-<table id="tablaPacientes" class="table mt-2 table-bordered text-white ms-5" >
+<table id="tablaPacientes" class="table mt-2 table-bordered text-white" >
   <thead class="cabezeratabla">
     <tr>
       <th scope="col">Nombre Completo</th>
       <th scope="col">Edad</th>
       <th scope="col">Patología</th>
       <th scope="col">Fecha Cirugía</th>
+      <th scope="col">Botones</th>
     </tr>
   </thead>
   <tbody id="cuerpotabla">
@@ -63,6 +64,7 @@
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" id="btnagregarpaciente" >Agregar paciente </button>
+        <button type="submit" class="btn btn-primary" id="btnactualizarpaciente" >Actualizar paciente </button>
       </div>
     </form>
     </div>
