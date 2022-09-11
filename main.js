@@ -4,8 +4,8 @@ buttonAgregar.addEventListener('click', (evento) => crearForm (evento))
 let formDatos= [];
 
 
-// let buttonActualizar = document.getElementById('btnactualizarpaciente')
-// buttonActualizar.addEventListener('click', (evento) => editarRegistro (evento))
+let buttonActualizar = document.getElementById('btnactualizarpaciente')
+buttonActualizar.addEventListener('click', (evento) => actualizarPaciente (evento))
 
 
 
@@ -56,7 +56,8 @@ function insertarNuevoPaciente(){
         cell5.innerHTML = '<button class="btn2" id="btnEditar">Editar</button><button class="btn3 "id="btnBorrar" onclick="eliminarRegistro(this,);">Borrar</button>';
         localStorage.setItem("formDatos",JSON.stringify(formDatos));
 
-              
+       limpiarForm ()
+       document.getElementById("close").click();   
         
 }
  
@@ -73,30 +74,26 @@ function eliminarRegistro (boton){
      fila = boton.parentElement.parentElement;
      console.log(fila.rowIndex);
      formDatos.splice(fila.rowIndex -1, 1);
-     document.getElementById("cuerpotabla").deleteRow(fila.rowIndex);
+     document.getElementById("tablaPacientes").deleteRow(fila.rowIndex);
      localStorage.setItem("formDatos",JSON.stringify(formDatos));
 
-    //  console.log(fila);
-    //  document.getElementById("cuerpotabla").deleteRow(fila[0]);
-    // formDatos = formDatos.filter((paciente) => nombreCompleto !== nombreCompleto)
-    // localStorage.setItem("formDatos",JSON.stringify(formDatos));
 
- //filtrar el array y borrar el elemento y luego guardar ese array en el localstorage
   
 }
 
 //funcion editar 
-function editarRegistro (){
-//     botonAgregar.style.display = 'none'
-//     botonActualizar.style.display = 'block'
+function editarRegistro (editar){
+    buttonAgregar .style.display = 'none'
+    buttonActualizar.style.display = 'block'
 
+    pacienteEnEdicion = editar.parentElement.parentElement;
 
-//  let pacienteEnEdicion = formDatos.find((nuevoPaciente) => nuevoPaciente.nombreCompleto === nombreCompleto)
+    document.getElementById("nombreCompleto").value = pacienteEnEdicion.cells[0].innerHTML;
+    document.getElementById("edad").value = pacienteEnEdicion.cells[1].innerHTML;
+    document.getElementById("patologia").value = pacienteEnEdicion.cells[2].innerHTML;
+    document.getElementById("fecha").value = fecha.value = pacienteEnEdicion.cells[3].innerHTML;
+    // nombreCompleto.setAttribute('disabled', true)
 
-// nombreCompleto.value = pacienteEnEdicion.nombreCompleto
-// edad.value = pacienteEnEdicion.edad
-// patologia.value = pacienteEnEdicion.patologia
-// fecha.value = pacienteEnEdicion.fecha
 
 }
 //funcion para que se guarden los datos en la tabla cuando se refresca la pagina
@@ -123,9 +120,67 @@ console.log(mostrarEnTabla);
                <td>${edadLs}</td>
                <td>${patologiaLs}</td>
                <td>${fechaLs}</td>
-               <td><button class="btn2" id="btnEditar" onclick="editarRegistro(this, '${nombreCompletoLs}');" >Editar</button><button class="btn3 "id="btnBorrar" onclick="eliminarRegistro(this)">Borrar</button></td>
+               <td>
+                  <button class="btn2" id="btnEditar" data-bs-toggle="modal" data-bs-target="#modalPaciente" onclick="editarRegistro(this)">Editar</button>
+                  <button class="btn3 "id="btnBorrar" onclick="eliminarRegistro(this)">Borrar</button></td>
             </tr>
             `
         }
     }
 }
+
+function actualizarPaciente(evento) {
+   evento.preventDefault ()
+
+   let nuevoNombreCompleto = document.getElementById("nombreCompleto").value
+   let nuevaEdad = document.getElementById("edad").value
+   let nuevaPatologia = document.getElementById("patologia").value
+   let nuevaFecha = document.getElementById("fecha").value 
+
+   formDatos = formDatos.map(Paciente => {
+      if (Paciente.nombreCompleto === nombreCompleto){
+      return {
+         nombreCompleto: 'nuevoNombreCompleto',
+         edad: 'nuevaEdad',
+         patologia:'nuevaPatologia',
+         fecha:'nuevaFecha'
+      }
+      }else
+      console.log('else')
+      return Paciente
+   })
+
+
+
+    limpiarForm ()
+
+
+    buttonAgregar .style.display = 'block'
+    buttonActualizar.style.display = 'none'
+
+    // nombreCompleto.removeAttribute('diseable')
+
+    localStorage.setItem("formDatos",JSON.stringify(formDatos));
+
+    actualizarPaginaConDatosLocalStorage()
+
+}
+
+    
+   
+//     // limpiar los input
+//     limpiarInput()
+  
+//     // vuelve a aparecer boton agregar
+//     botonAgregar.style.display = 'block'
+//     // vuelva a desaparecer el boton actualizar
+//     botonActualizar.style.display = 'none'
+//     // vuelve a quedar activo el input
+//     nombre.removeAttribute('disabled')
+//     // actualizo el LS
+//     guardarEnLS()
+//     // actualizar la tabla
+//     mostrarTareas()
+//   }
+  
+//   leerTareas()
