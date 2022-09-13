@@ -71,7 +71,7 @@ function limpiarForm (){
 }
 //funcion eliminar 
 function eliminarRegistro (boton){
-     fila = boton.parentElement.parentElement;
+     var fila = boton.parentElement.parentElement;
      console.log(fila.rowIndex);
      formDatos.splice(fila.rowIndex -1, 1);
      document.getElementById("tablaPacientes").deleteRow(fila.rowIndex);
@@ -96,6 +96,9 @@ function editarRegistro (editar){
 
 
 }
+
+
+
 //funcion para que se guarden los datos en la tabla cuando se refresca la pagina
 function actualizarPaginaConDatosLocalStorage(){
     if(localStorage.getItem("formDatos") === null){
@@ -129,42 +132,56 @@ console.log(mostrarEnTabla);
     }
 }
 
-function actualizarPaciente(evento) {
-   evento.preventDefault ()
+function actualizarPaciente(formDatos){
 
-   let nuevoNombreCompleto = document.getElementById("nombreCompleto").value
-   let nuevaEdad = document.getElementById("edad").value
-   let nuevaPatologia = document.getElementById("patologia").value
-   let nuevaFecha = document.getElementById("fecha").value 
+    pacienteEnEdicion.cells[0].innerHTML = formDatos.nombreCompleto;
+    pacienteEnEdicion.cells[1].innerHTML = formDatos.edad;
+    pacienteEnEdicion.cells[2].innerHTML = formDatos.patologia;
+    pacienteEnEdicion.cells[3].innerHTML = formDatos.fecha;
 
-   formDatos = formDatos.map(Paciente => {
-      if (Paciente.nombreCompleto === nombreCompleto){
-      return {
-         nombreCompleto: 'nuevoNombreCompleto',
-         edad: 'nuevaEdad',
-         patologia:'nuevaPatologia',
-         fecha:'nuevaFecha'
-      }
-      }else
-      console.log('else')
-      return Paciente
-   })
-
-
-
-    limpiarForm ()
-
-
-    buttonAgregar .style.display = 'block'
-    buttonActualizar.style.display = 'none'
-
-    // nombreCompleto.removeAttribute('diseable')
-
+    formDatos.splice(pacienteEnEdicion.rowIndex -1, 1,{nombreCompleto:formDatos.nombreCompleto,edad:formDatos.edad,patologia:formDatos.patologia,fecha:formDatos.fecha});
     localStorage.setItem("formDatos",JSON.stringify(formDatos));
+    }
 
-    actualizarPaginaConDatosLocalStorage()
 
-}
+
+
+// function actualizarPaciente(evento) {
+//    evento.preventDefault ()
+
+//    let nuevoNombreCompleto = document.getElementById("nombreCompleto").value
+//    let nuevaEdad = document.getElementById("edad").value
+//    let nuevaPatologia = document.getElementById("patologia").value
+//    let nuevaFecha = document.getElementById("fecha").value 
+
+//    formDatos = formDatos.map(PacienteEnEdicion => {
+//       if (pacienteEnEdicion.nombreCompleto === nombreCompleto){
+//       return {
+//          nombreCompleto: '',
+//          edad: '',
+//          patologia:'',
+//          fecha:''
+//       }
+//       }else
+//     //   console.log('else')
+//       return PacienteEnEdicion
+//    })
+
+
+
+//     limpiarForm ()
+
+
+//     buttonAgregar .style.display = 'block'
+//     buttonActualizar.style.display = 'none'
+
+//     // nombreCompleto.removeAttribute('diseable')
+
+//     localStorage.setItem("formDatos",JSON.stringify(formDatos));
+
+//     actualizarPaginaConDatosLocalStorage()
+
+// }
 
     
    

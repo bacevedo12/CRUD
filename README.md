@@ -9,4 +9,4 @@ Aplicación Web dinámica para poder ingresar, modificar, actualizar o borrar pa
  - JavaScript y
  - Window.LocalStorage
 
-Dirección URL 
+Dirección URL https://bacevedo12.github.io/CRUD/
